@@ -84,15 +84,12 @@ const generateDailyProduction = (date: Date, baseProduction: number = 25): numbe
   const dailyVariation = 0.8 + (Math.random() * 0.4); // 0.8 to 1.2
   
   // Weekend factor - slightly higher consumption on weekends
-  const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-  const weekendFactor = isWeekend ? 1.1 : 1.0;
   
   return Number((baseProduction * seasonalFactor * dailyVariation).toFixed(1));
 };
 
 // Generate realistic daily consumption based on month and weather conditions
-const generateDailyConsumption = (date: Date, production: number): number => {
+const generateDailyConsumption = (date: Date): number => {
   const month = date.getMonth();
   
   // Consumption is affected by seasons but differently than production
@@ -119,8 +116,7 @@ const generateDailyConsumption = (date: Date, production: number): number => {
   
   // Weekend factor - higher consumption on weekends
   const dayOfWeek = date.getDay();
-  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-  const weekendFactor = isWeekend ? 1.15 : 1.0;
+  const weekendFactor = dayOfWeek === 0 || dayOfWeek === 6 ? 1.15 : 1.0;
   
   // Consumption is related to production but not directly proportional
   // On good production days, we use more solar and less grid
@@ -173,7 +169,7 @@ const generatePastWeekConsumption = (): Array<{ day: string; consumption: number
     const date = subDays(today, i);
     const formattedDate = format(date, 'MMM dd');
     const production = generateDailyProduction(date);
-    const consumption = generateDailyConsumption(date, production);
+    const consumption = generateDailyConsumption(date);
     
     result.push({
       day: formattedDate,
@@ -537,7 +533,7 @@ export function generateHistoricalData(startDate: Date, endDate: Date): Array<{
   
   while (currentDate <= endDate) {
     const production = generateDailyProduction(currentDate);
-    const consumption = generateDailyConsumption(currentDate, production);
+    const consumption = generateDailyConsumption(currentDate);
     const batteryLevel = 50 + Math.floor(Math.random() * 40);
     const gridUsage = Math.max(0, consumption - (production * 0.9));
     

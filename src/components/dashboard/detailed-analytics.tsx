@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import GlassCard from "@/components/ui/glass-card";
 import { EnergyData, generateHistoricalData } from "@/lib/data";
-import { motion } from "framer-motion";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, Area } from "recharts";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Download, Calendar, TrendingUp, BarChart3, PieChart, FileText } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { addDays, subDays, subMonths, subYears, format } from "date-fns";
+import { addDays, subDays, subMonths, format } from "date-fns";
 
 interface DetailedAnalyticsProps {
   data: EnergyData;
+}
+
+interface HistoricalDataPoint {
+  date: string;
+  production: number;
+  consumption: number;
+  savings: number;
+  batteryLevel?: number;
+  gridUsage?: number;
+}
+
+interface PredictionDataPoint {
+  day: string;
+  production: number;
+  consumption: number;
+  confidence: number;
 }
 
 const DetailedAnalytics = ({ data }: DetailedAnalyticsProps) => {
@@ -18,15 +33,14 @@ const DetailedAnalytics = ({ data }: DetailedAnalyticsProps) => {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [exportFormat, setExportFormat] = useState<'csv' | 'pdf' | 'excel'>('csv');
   const [exportTimeRange, setExportTimeRange] = useState<'day' | 'week' | 'month' | 'year'>('month');
-  const [historicalData, setHistoricalData] = useState<any[]>([]);
-  const [monthlyData, setMonthlyData] = useState<any[]>([]);
-  const [predictionData, setPredictionData] = useState<any[]>([]);
+  const [historicalData, setHistoricalData] = useState<HistoricalDataPoint[]>([]);
+  const [predictionData, setPredictionData] = useState<PredictionDataPoint[]>([]);
   
   // Generate historical data when component mounts or time range changes
   useEffect(() => {
     const today = new Date();
     let startDate: Date;
-    let endDate = today;
+    const endDate = today;
     
     // Set start date based on selected time range
     switch (timeRange) {
@@ -57,28 +71,6 @@ const DetailedAnalytics = ({ data }: DetailedAnalyticsProps) => {
     }));
     
     setHistoricalData(formattedData);
-    
-    // Generate monthly aggregated data
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const monthlyAggregated = months.map(month => {
-      // Generate realistic monthly data based on seasonal factors
-      const monthIndex = months.indexOf(month);
-      const seasonalFactor = 0.8 + (monthIndex % 12) / 10; // Seasonal variation
-      
-      const baseProduction = 400 + Math.random() * 100;
-      const production = Math.round(baseProduction * seasonalFactor);
-      const consumption = Math.round(production * (0.6 + Math.random() * 0.2));
-      const savings = Math.round((production - consumption) * 0.12);
-      
-      return {
-        month,
-        production,
-        consumption,
-        savings
-      };
-    });
-    
-    setMonthlyData(monthlyAggregated);
     
     // Generate prediction data for next 7 days
     const predictions = [];

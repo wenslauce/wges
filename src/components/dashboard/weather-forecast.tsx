@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import GlassCard from "@/components/ui/glass-card";
-import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
-import { Cloud, Sun, Droplets, Wind, Thermometer, Clock, Moon, RefreshCw } from "lucide-react";
+import { Cloud, Sun, Droplets, Wind, Thermometer, Moon, RefreshCw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { WeatherData, SolarForecast, weatherCodeToDescription, weatherCodeToIcon, useWeatherData } from "@/lib/weather-service";
+import { weatherCodeToDescription, weatherCodeToIcon, useWeatherData } from "@/lib/weather-service";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUserLocation } from "@/lib/location-service";
 import { Button } from "@/components/ui/button";
@@ -392,7 +391,7 @@ const WeatherForecast = ({ systemCapacityKW }: WeatherForecastProps) => {
             
             <div className="grid grid-cols-2 gap-1">
               <div className="p-1.5 rounded-sm bg-gradient-to-r from-amber-500/10 to-amber-500/5 border border-amber-500/20">
-                <p className="text-[10px] text-muted-foreground mb-0.5">Today's Forecast</p>
+                <p className="text-[10px] text-muted-foreground mb-0.5">Today&apos;s Forecast</p>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-semibold leading-tight">{dailyProduction[0]?.production.toFixed(1)} kWh</p>

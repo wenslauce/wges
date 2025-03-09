@@ -112,7 +112,7 @@ export const fetchUserLocation = async (): Promise<LocationData> => {
                   country: data.address?.country || 'Unknown',
                   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
                 });
-              } catch (error) {
+              } catch {
                 // If reverse geocoding fails, return coordinates only
                 resolve({
                   latitude: position.coords.latitude,

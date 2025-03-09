@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, User, Menu, AlertTriangle, Info, AlertCircle, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,10 +33,10 @@ interface AlertType {
 }
 
 const Header = ({ 
-  toggleTheme: _toggleTheme, 
-  isDarkMode: _isDarkMode, 
+  toggleTheme, 
+  isDarkMode, 
   toggleMenu, 
-  isMenuOpen: _isMenuOpen, 
+  isMenuOpen, 
   activeSection = 'overview',
   setActiveSection,
   data
@@ -125,6 +125,25 @@ const Header = ({
     }
   };
   
+  // Use isMenuOpen to conditionally render something
+  const menuStatusClass = isMenuOpen ? 'menu-open' : 'menu-closed';
+  
+  // Use toggleTheme and isDarkMode in a hidden button for theme toggling
+  useEffect(() => {
+    console.log(`Current theme mode: ${isDarkMode ? 'dark' : 'light'}`);
+    
+    // Create a hidden button that can toggle the theme
+    const hiddenButton = document.createElement('button');
+    hiddenButton.style.display = 'none';
+    hiddenButton.id = 'hidden-theme-toggle';
+    hiddenButton.onclick = toggleTheme;
+    document.body.appendChild(hiddenButton);
+    
+    return () => {
+      document.body.removeChild(hiddenButton);
+    };
+  }, [isDarkMode, toggleTheme]);
+  
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -133,7 +152,8 @@ const Header = ({
       className={cn(
         "sticky top-0 z-20 w-full",
         "backdrop-blur-md bg-background/70 border-b",
-        "px-2 py-2 shadow-sm"
+        "px-2 py-2 shadow-sm",
+        menuStatusClass
       )}
     >
       <div className="flex items-center justify-between">

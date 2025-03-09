@@ -2,10 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import EnergyProduction from "./energy-production";
 import BatteryStatus from "./battery-status";
 import EnergyConsumption from "./energy-consumption";
-import SystemHealth from "./system-health";
 import GridStatus from "./grid-status";
 import RemoteControls from "./remote-controls";
-import DetailedAnalytics from "./detailed-analytics";
 import UserSettings from "./user-settings";
 import WeatherForecast from "./weather-forecast";
 import { generateMockEnergyData, getUpdatedData, EnergyData } from "@/lib/data";
@@ -171,10 +169,10 @@ const DashboardLayout = ({ isDarkMode, toggleTheme, activeSection, data: externa
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
+                transition={{ duration: 0.3, delay: 0.5 }}
                 className="col-span-1 order-6 md:order-5"
               >
-                <RemoteControls data={data} />
+                <RemoteControls />
               </motion.div>
               
               {/* Energy Consumption */}
@@ -305,7 +303,7 @@ const DashboardLayout = ({ isDarkMode, toggleTheme, activeSection, data: externa
                 transition={{ delay: 0.3, duration: 0.3 }}
                 className="col-span-1 order-6 md:order-5"
               >
-                <RemoteControls data={data} />
+                <RemoteControls />
               </motion.div>
               
               {/* Energy Consumption */}

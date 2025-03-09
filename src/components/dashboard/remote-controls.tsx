@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import GlassCard from "@/components/ui/glass-card";
-import { EnergyData } from "@/lib/data";
 import { motion } from "framer-motion";
 import { Power, Smartphone, ToggleLeft, Zap, Clock, Settings, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,11 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 
-interface RemoteControlsProps {
-  data: EnergyData;
-}
-
-const RemoteControls = ({ data }: RemoteControlsProps) => {
+const RemoteControls = () => {
   const [showPowerDialog, setShowPowerDialog] = useState(false);
   const [showLoadDialog, setShowLoadDialog] = useState(false);
   const [systemStatus, setSystemStatus] = useState<'online' | 'offline' | 'restarting'>('online');
@@ -252,7 +247,7 @@ const RemoteControls = ({ data }: RemoteControlsProps) => {
               <div className="space-y-2">
                 <p className="text-sm font-medium">Peak Hours Configuration</p>
                 <p className="text-xs text-muted-foreground mb-4">
-                  Set your utility's peak demand hours to optimize battery usage during high-rate periods
+                  Set your utility&apos;s peak demand hours to optimize battery usage during high-rate periods
                 </p>
                 
                 <div className="flex items-center gap-4">
