@@ -32,8 +32,8 @@ const UserSettings = ({ isDarkMode, toggleTheme }: UserSettingsProps) => {
   const [showProfileDialog, setShowProfileDialog] = useState(false);
   const [showLayoutDialog, setShowLayoutDialog] = useState(false);
   const [showAlertsDialog, setShowAlertsDialog] = useState(false);
-  const [userName, setUserName] = useState("John Doe");
-  const [userEmail, setUserEmail] = useState("john.doe@example.com");
+  const [userName, setUserName] = useState("Wenslauce Chengo");
+  const [userEmail, setUserEmail] = useState("hello@wenslauce.com");
   const [alertPreferences, setAlertPreferences] = useState({
     email: true,
     push: true,
