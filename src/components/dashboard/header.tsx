@@ -104,8 +104,8 @@ const Header = ({
   
   // Mock user data (in a real app, this would come from a user context or API)
   const userData = {
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Wenslauce Chengo",
+    email: "hello@wenslauce.com",
     role: "System Administrator",
     avatar: null // No avatar image for this demo
   };
