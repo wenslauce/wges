@@ -418,7 +418,7 @@ export const generateMockEnergyData = (): EnergyData => {
   return {
     currentProduction: Number(currentProduction.toFixed(1)),
     totalProduction,
-    batteryStatus: {
+  batteryStatus: {
       level: batteryLevel,
       backupHours,
       chargeRate,
@@ -426,15 +426,15 @@ export const generateMockEnergyData = (): EnergyData => {
       health: 94 - Math.floor(Math.random() * 3)
     },
     gridStatus,
-    consumption: {
+  consumption: {
       current: Number(currentConsumption.toFixed(1)),
-      breakdown: {
-        appliances: 40,
-        hvac: 30,
-        lights: 15,
-        other: 15
-      },
-      comparison: {
+    breakdown: {
+      appliances: 40,
+      hvac: 30,
+      lights: 15,
+      other: 15
+    },
+    comparison: {
         solar: solarPercentage,
         grid: 100 - solarPercentage
       }
